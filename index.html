@@ -33,10 +33,13 @@
     pointer-events: none;
     z-index: 0;
   }
-  .hearts i {
+  .hearts img {
     position: absolute;
-    bottom: -70px;
+    bottom: -120px;
     animation: floatUp linear infinite;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 6px 16px rgba(193,24,74,0.22);
   }
   @keyframes floatUp {
     0% { transform: translateY(0) rotate(0deg); opacity: 0; }
@@ -216,9 +219,9 @@
 
 <div class="stack">
   <div class="cats-peek">
-      <img class="cat peeko" src="white-cat.jpg" alt="white cat"/>
-      <img class="cat peeko" src="black-cat.jpg" alt="black cat"/>
-      <img class="cat peeko" src="siamese-cat.jpg" alt="siamese cat"/>
+      <img class="cat peeko" src="images/ozzie.png" alt="ozzie cat"/>
+      <img class="cat peeko" src="images/olaf.jpeg" alt="olaf cat"/>
+      <img class="cat peeko" src="images/toothless.png" alt="toothless cat"/>
   </div>
   <div class="card" id="card">
 
@@ -299,9 +302,9 @@
     <div class="summary" id="finalSummary"></div>
     <p class="final-name">Can't wait to be with you. I love you! 💕</p>
     <div class="cats final-cats">
-      <img class="cat f" src="white-cat.jpg" alt="white cat"/>
-      <img class="cat f" src="black-cat.jpg" alt="black cat"/>
-      <img class="cat f" src="siamese-cat.jpg" alt="siamese cat"/>
+      <img class="cat f" src="images/ozzie.png" alt="ozzie cat"/>
+      <img class="cat f" src="images/olaf.jpeg" alt="olaf cat"/>
+      <img class="cat f" src="images/toothless.png" alt="toothless cat"/>
     </div>
     <p class="final-name meow">have a good date Meowmy &amp; Meowdy 🐾</p>
     <button class="next-btn enabled" onclick="startOver()">Start Over 🔄</button>
@@ -311,18 +314,20 @@
 </div>
 
 <script>
-  // ---- Floating hearts ----
+  // ---- Floating background images (1..26) ----
   const heartsEl = document.getElementById('hearts');
-  const heartEmojis = ['❤️','💖','💗','💘','💕','🌹','✨'];
+  const bgImgs = [];
+  for (let i = 1; i <= 26; i++) bgImgs.push('images/' + i + '.jpeg');
   for (let i = 0; i < 18; i++) {
-    const h = document.createElement('i');
-    h.textContent = heartEmojis[(Math.random()*heartEmojis.length)|0];
-    h.style.left = Math.random()*100 + '%';
-    h.style.fontSize = (14 + Math.random()*26) + 'px';
-    h.style.opacity = (0.3 + Math.random()*0.5);
-    h.style.animationDuration = (6 + Math.random()*9) + 's';
-    h.style.animationDelay = (-Math.random()*12) + 's';
-    heartsEl.appendChild(h);
+    const im = document.createElement('img');
+    im.src = bgImgs[(Math.random()*bgImgs.length)|0];
+    im.style.left = Math.random()*100 + '%';
+    im.style.width = (26 + Math.random()*44) + 'px';
+    im.style.height = 'auto';
+    im.style.opacity = (0.4 + Math.random()*0.55);
+    im.style.animationDuration = (9 + Math.random()*10) + 's';
+    im.style.animationDelay = (-Math.random()*16) + 's';
+    heartsEl.appendChild(im);
   }
 
   // ---- Confetti ----
