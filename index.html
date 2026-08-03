@@ -46,8 +46,9 @@
 
   .card {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     width: min(540px, 100%);
+    margin-top: 130px;
     background: var(--soft);
     backdrop-filter: blur(14px);
     border-radius: 32px;
@@ -182,8 +183,28 @@
     50% { transform: translateY(-6px) rotate(2deg); }
   }
   .final-cats { justify-content: center; margin-top: 4px; }
-  .cats-row { margin-bottom: 10px; }
-  .cats-row .cat { width: 84px; height: 84px; }
+  .stack { position: relative; z-index: 2; display: flex; justify-content: center; }
+  .cats-peek {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    gap: 36px;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .cats-peek .cat,
+  .final-cats .cat {
+    border-radius: 50%;
+    object-fit: cover;
+    background: #fff;
+    border: 5px solid #fff;
+    box-shadow: 0 14px 30px rgba(193,24,74,0.35);
+  }
+  .cats-peek .cat { width: 150px; height: 150px; }
+  .final-cats .cat { width: 92px; height: 92px; }
 </style>
 </head>
 <body>
@@ -191,7 +212,13 @@
 <div class="hearts" id="hearts"></div>
 <canvas id="confetti"></canvas>
 
-<div class="card" id="card">
+<div class="stack">
+  <div class="cats-peek">
+      <img class="cat peeko" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/White_cat_%2826973287860%29.jpg/330px-White_cat_%2826973287860%29.jpg" alt="white cat"/>
+      <img class="cat peeko" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/330px-Cat_November_2010-1a.jpg" alt="black cat"/>
+      <img class="cat peeko" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Classic_Apple-Head_Siamese_Cat.jpg/330px-Classic_Apple-Head_Siamese_Cat.jpg" alt="siamese cat"/>
+  </div>
+  <div class="card" id="card">
 
   <!-- 1. Question -->
   <div class="section active" id="sec-ask">
@@ -201,65 +228,6 @@
     <div class="btn-row">
       <button class="yes" id="btnYes">YES! 💖</button>
       <button class="no" id="btnNo">NO 🙈</button>
-    </div>
-    <div class="cats cats-row">
-      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <g stroke="#e8d3b8" stroke-width="3" fill="#ffffff">
-          <polygon points="26,58 34,8 56,42"/>
-          <polygon points="94,58 86,8 64,42"/>
-          <circle cx="60" cy="82" r="50"/>
-        </g>
-        <polygon points="32,44 41,24 50,42" fill="#ffc9d3"/>
-        <polygon points="88,44 79,24 70,42" fill="#ffc9d3"/>
-        <circle cx="43" cy="76" r="5" fill="#2b2b2b"/>
-        <circle cx="77" cy="76" r="5" fill="#2b2b2b"/>
-        <circle cx="45" cy="74" r="1.7" fill="#ffffff"/>
-        <circle cx="79" cy="74" r="1.7" fill="#ffffff"/>
-        <polygon points="55,86 65,86 60,91" fill="#ff9db4"/>
-        <path d="M60 92 q-8 9 -16 3" stroke="#d0778c" stroke-width="2.5" fill="none"/>
-        <path d="M60 92 q8 9 16 3" stroke="#d0778c" stroke-width="2.5" fill="none"/>
-        <path d="M28 86 q-8 -3 -13 -8 M28 90 q-9 1 -13 1" stroke="#e8d5b8" stroke-width="2" fill="none"/>
-        <path d="M92 86 q8 -3 13 -8 M92 90 q9 1 13 1" stroke="#e8d5b8" stroke-width="2" fill="none"/>
-      </svg>
-      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <g stroke="#000000" stroke-width="3" fill="#1b1b1b">
-          <polygon points="26,58 34,16 56,42"/>
-          <polygon points="92,58 86,16 64,42"/>
-          <circle cx="60" cy="82" r="50"/>
-        </g>
-        <polygon points="32,44 41,24 50,42" fill="#2f4f3f"/>
-        <polygon points="88,44 79,24 70,42" fill="#2f4f3f"/>
-        <circle cx="43" cy="76" r="5" fill="#ffe66b"/>
-        <circle cx="77" cy="76" r="5" fill="#ffe66b"/>
-        <circle cx="43" cy="76" r="2.4" fill="#111"/>
-        <circle cx="77" cy="76" r="2.4" fill="#111"/>
-        <polygon points="55,86 65,86 60,91" fill="#ff9db4"/>
-        <path d="M60 92 q-8 9 -16 1" stroke="#c96a84" stroke-width="2.5" fill="none"/>
-        <path d="M60 92 q8 9 16 1" stroke="#c96a84" stroke-width="2.5" fill="none"/>
-        <path d="M28 86 q-8 -3 -13 -8 M28 90 q-9 1 -13 1" stroke="#3a3a3a" stroke-width="2" fill="none"/>
-        <path d="M92 86 q8 -3 13 -8 M92 90 q9 1 13 1" stroke="#3a3a3a" stroke-width="2" fill="none"/>
-      </svg>
-      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <g stroke="#cfaa82" stroke-width="3" fill="#f5e3ca">
-          <polygon points="26,58 34,16 56,42"/>
-          <polygon points="92,58 86,16 64,42"/>
-          <circle cx="60" cy="82" r="50"/>
-        </g>
-        <g fill="#b98a5c">
-          <polygon points="32,44 41,24 50,42"/>
-          <polygon points="88,44 79,24 70,42"/>
-        </g>
-        <ellipse cx="60" cy="77" rx="16" ry="14" fill="#b98a5c"/>
-        <circle cx="43" cy="72" r="5" fill="#4c7dff"/>
-        <circle cx="77" cy="72" r="5" fill="#4c7dff"/>
-        <circle cx="45" cy="70" r="1.7" fill="#ffffff"/>
-        <circle cx="79" cy="70" r="1.7" fill="#ffffff"/>
-        <polygon points="56,86 64,86 60,91" fill="#8a5a3a"/>
-        <path d="M60 92 q-8 9 -16 1" stroke="#8a5a3a" stroke-width="2.5" fill="none"/>
-        <path d="M60 92 q8 9 16 1" stroke="#8a5a3a" stroke-width="2.5" fill="none"/>
-        <path d="M28 86 q-8 -3 -13 -7 M28 90 q-9 1 -13 1" stroke="#cfaa82" stroke-width="2" fill="none"/>
-        <path d="M92 86 q8 -3 13 -7 M92 90 q9 1 13 1" stroke="#cfaa82" stroke-width="2" fill="none"/>
-      </svg>
     </div>
   </div>
 
@@ -329,68 +297,15 @@
     <div class="summary" id="finalSummary"></div>
     <p class="final-name">Can't wait to be with you. I love you! 💕</p>
     <div class="cats final-cats">
-      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <g stroke="#e8d3b8" stroke-width="3" fill="#ffffff">
-          <polygon points="26,58 34,8 56,42"/>
-          <polygon points="94,58 86,8 64,42"/>
-          <circle cx="60" cy="82" r="50"/>
-        </g>
-        <polygon points="32,44 41,24 50,42" fill="#ffc9d3"/>
-        <polygon points="88,44 79,24 70,42" fill="#ffc9d3"/>
-        <circle cx="43" cy="76" r="5" fill="#2b2b2b"/>
-        <circle cx="77" cy="76" r="5" fill="#2b2b2b"/>
-        <circle cx="45" cy="74" r="1.7" fill="#ffffff"/>
-        <circle cx="79" cy="74" r="1.7" fill="#ffffff"/>
-        <polygon points="55,86 65,86 60,91" fill="#ff9db4"/>
-        <path d="M60 92 q-8 9 -16 3" stroke="#d0778c" stroke-width="2.5" fill="none"/>
-        <path d="M60 92 q8 9 16 3" stroke="#d0778c" stroke-width="2.5" fill="none"/>
-        <path d="M28 86 q-8 -3 -13 -8 M28 90 q-9 1 -13 1" stroke="#e8d5b8" stroke-width="2" fill="none"/>
-        <path d="M92 86 q8 -3 13 -8 M92 90 q9 1 13 1" stroke="#e8d5b8" stroke-width="2" fill="none"/>
-      </svg>
-      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <g stroke="#000000" stroke-width="3" fill="#1b1b1b">
-          <polygon points="26,52 34,22 56,42"/>
-          <polygon points="92,52 86,22 64,42"/>
-          <circle cx="60" cy="82" r="50"/>
-        </g>
-        <polygon points="32,44 41,24 50,42" fill="#2f4f3f"/>
-        <polygon points="88,44 79,24 70,42" fill="#2f4f3f"/>
-        <circle cx="43" cy="52" r="5" fill="#ffe66b"/>
-        <circle cx="77" cy="52" r="5" fill="#ffe66b"/>
-        <circle cx="43" cy="52" r="2.4" fill="#111"/>
-        <circle cx="77" cy="52" r="2.4" fill="#111"/>
-        <polygon points="55,86 65,86 60,91" fill="#ff9db4"/>
-        <path d="M60 92 q-8 9 -16 1" stroke="#c96a84" stroke-width="2.5" fill="none"/>
-        <path d="M60 92 q8 9 16 1" stroke="#c96a84" stroke-width="2.5" fill="none"/>
-        <path d="M28 86 q-8 -3 -13 -4 M28 90 q-9 1 -13 1" stroke="#3a3a3a" stroke-width="2" fill="none"/>
-        <path d="M92 86 q8 -3 13 -4 M92 90 q9 1 13 1" stroke="#3a3a3a" stroke-width="2" fill="none"/>
-      </svg>
-      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
-        <g stroke="#cfaa82" stroke-width="3" fill="#f5e3ca">
-          <polygon points="26,58 34,16 56,42"/>
-          <polygon points="92,58 86,16 64,42"/>
-          <circle cx="60" cy="82" r="50"/>
-        </g>
-        <g fill="#b98a5c">
-          <polygon points="32,44 41,24 50,42"/>
-          <polygon points="88,44 79,24 70,42"/>
-        </g>
-        <ellipse cx="60" cy="77" rx="16" ry="14" fill="#b98a5c"/>
-        <circle cx="43" cy="72" r="5" fill="#4c7dff"/>
-        <circle cx="77" cy="72" r="5" fill="#4c7dff"/>
-        <circle cx="45" cy="70" r="1.7" fill="#ffffff"/>
-        <circle cx="79" cy="70" r="1.7" fill="#ffffff"/>
-        <polygon points="56,86 64,86 60,91" fill="#8a5a3a"/>
-        <path d="M60 92 q-8 9 -16 1" stroke="#8a5a3a" stroke-width="2.5" fill="none"/>
-        <path d="M60 92 q8 9 16 1" stroke="#8a5a3a" stroke-width="2.5" fill="none"/>
-        <path d="M28 86 q-8 -3 -13 -7 M28 90 q-9 1 -13 1" stroke="#cfaa82" stroke-width="2" fill="none"/>
-        <path d="M92 86 q8 -3 13 -7 M92 90 q9 1 13 1" stroke="#cfaa82" stroke-width="2" fill="none"/>
-      </svg>
+      <img class="cat f" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/White_cat_%2826973287860%29.jpg/330px-White_cat_%2826973287860%29.jpg" alt="white cat"/>
+      <img class="cat f" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/330px-Cat_November_2010-1a.jpg" alt="black cat"/>
+      <img class="cat f" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/Classic_Apple-Head_Siamese_Cat.jpg/330px-Classic_Apple-Head_Siamese_Cat.jpg" alt="siamese cat"/>
     </div>
     <p class="final-name meow">have a good date Meowmy &amp; Meowdy 🐾</p>
     <button class="next-btn enabled" onclick="startOver()">Start Over 🔄</button>
   </div>
 
+</div>
 </div>
 
 <script>
