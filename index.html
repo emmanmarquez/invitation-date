@@ -35,16 +35,39 @@
   }
   .hearts img {
     position: absolute;
-    bottom: -120px;
+    bottom: -150px;
     animation: floatUp linear infinite;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 6px 16px rgba(193,24,74,0.22);
+    box-shadow: 0 8px 20px rgba(193,24,74,0.25);
+    will-change: transform, opacity;
   }
   @keyframes floatUp {
-    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.9; }
-    100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
+    0%   { transform: translateY(0) translateX(0) rotate(-10deg); opacity: 0; }
+    8%   { opacity: 0.85; }
+    50%  { opacity: 0.6; }
+    100% { transform: translateY(-118vh) translateX(0) rotate(12deg); opacity: 0; }
+  }
+  @keyframes floatDrift {
+    0%   { transform: translateY(0) translateX(0) rotate(-8deg); opacity: 0; }
+    12%  { opacity: 0.9; }
+    35%  { transform: translateY(-32vh) translateX(-80px) rotate(6deg); }
+    60%  { opacity: 0.5; }
+    100% { transform: translateY(-120vh) translateX(90px) rotate(-12deg); opacity: 0; }
+  }
+  @keyframes floatDriftR {
+    0%   { transform: translateY(0) translateX(0) rotate(9deg); opacity: 0; }
+    15%  { opacity: 0.95; }
+    40%  { transform: translateY(-48vh) translateX(70px) rotate(-7deg); }
+    65%  { opacity: 0.4; }
+    100% { transform: translateY(-116vh) translateX(-80px) rotate(12deg); opacity: 0; }
+  }
+  @keyframes floatFade {
+    0%   { transform: translateY(0) scale(0.7); opacity: 0; }
+    20%  { opacity: 0.9; }
+    45%  { opacity: 0.15; }
+    70%  { opacity: 0.75; }
+    100% { transform: translateY(-120vh) scale(1.15); opacity: 0; }
   }
 
   .card {
@@ -219,9 +242,9 @@
 
 <div class="stack">
   <div class="cats-peek">
-      <img class="cat peeko" src="images/ozzie.png" alt="ozzie cat"/>
-      <img class="cat peeko" src="images/olaf.jpeg" alt="olaf cat"/>
-      <img class="cat peeko" src="images/toothless.png" alt="toothless cat"/>
+      <img class="cat peeko" src="white-cat.jpg" alt="white cat"/>
+      <img class="cat peeko" src="black-cat.jpg" alt="black cat"/>
+      <img class="cat peeko" src="siamese-cat.jpg" alt="siamese cat"/>
   </div>
   <div class="card" id="card">
 
@@ -302,9 +325,9 @@
     <div class="summary" id="finalSummary"></div>
     <p class="final-name">Can't wait to be with you. I love you! 💕</p>
     <div class="cats final-cats">
-      <img class="cat f" src="images/ozzie.png" alt="ozzie cat"/>
-      <img class="cat f" src="images/olaf.jpeg" alt="olaf cat"/>
-      <img class="cat f" src="images/toothless.png" alt="toothless cat"/>
+      <img class="cat f" src="white-cat.jpg" alt="white cat"/>
+      <img class="cat f" src="black-cat.jpg" alt="black cat"/>
+      <img class="cat f" src="siamese-cat.jpg" alt="siamese cat"/>
     </div>
     <p class="final-name meow">have a good date Meowmy &amp; Meowdy 🐾</p>
     <button class="next-btn enabled" onclick="startOver()">Start Over 🔄</button>
@@ -318,15 +341,17 @@
   const heartsEl = document.getElementById('hearts');
   const bgImgs = [];
   for (let i = 1; i <= 26; i++) bgImgs.push('images/' + i + '.jpeg');
-  for (let i = 0; i < 18; i++) {
+  const floatAnims = ['floatUp', 'floatDrift', 'floatDriftR', 'floatFade'];
+  for (let i = 0; i < 20; i++) {
     const im = document.createElement('img');
     im.src = bgImgs[(Math.random()*bgImgs.length)|0];
-    im.style.left = Math.random()*100 + '%';
-    im.style.width = (26 + Math.random()*44) + 'px';
-    im.style.height = 'auto';
-    im.style.opacity = (0.4 + Math.random()*0.55);
-    im.style.animationDuration = (9 + Math.random()*10) + 's';
-    im.style.animationDelay = (-Math.random()*16) + 's';
+    im.style.left = (Math.random()*92) + '%';
+    const size = (56 + Math.random()*110);
+    im.style.width = size + 'px';
+    im.style.height = size + 'px';
+    im.style.animation = (floatAnims[(Math.random()*floatAnims.length)|0]) +
+      ' ' + (10 + Math.random()*12) + 's linear infinite';
+    im.style.animationDelay = (-Math.random()*18) + 's';
     heartsEl.appendChild(im);
   }
 
