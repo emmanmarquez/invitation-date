@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Will You Be My Date? 💗</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --rose: #ff4d6d;
+    --deep-rose: #c9184a;
+    --cream: #fff5f7;
+    --gold: #ffd66b;
+    --soft: rgba(255, 255, 255, 0.85);
+  }
+
+  body {
+    font-family: 'Segoe UI', 'Poppins', system-ui, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 50%, #ff758f 100%);
+    overflow: hidden;
+    padding: 16px;
+  }
+
+  .hearts {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .hearts i {
+    position: absolute;
+    bottom: -70px;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.9; }
+    100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
+  }
+
+  .card {
+    position: relative;
+    z-index: 1;
+    width: min(540px, 100%);
+    background: var(--soft);
+    backdrop-filter: blur(14px);
+    border-radius: 32px;
+    padding: 40px 26px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(193, 24, 74, 0.4),
+      inset 0 0 0 2px rgba(255, 255, 255, 0.5);
+    animation: pop 0.6s ease-out;
+  }
+  @keyframes pop {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  .emoji-big { font-size: 72px; animation: beat 1.4s infinite; }
+  @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.15); }
+    50% { transform: scale(0.95); }
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    margin: 14px 0 8px;
+    background: linear-gradient(90deg, var(--deep-rose), var(--rose), var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .sub { color: #6b2136; font-size: 1.02rem; margin-bottom: 26px; line-height: 1.5; }
+
+  .btn-row { display: flex; gap: 24px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 6px; }
+
+  button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 700;
+    border-radius: 50px;
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .yes {
+    background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 16px 44px;
+    box-shadow: 0 10px 25px rgba(201, 24, 74, 0.5);
+  }
+  .yes:hover, .yes:focus { transform: translateY(-4px) scale(1.05); }
+
+  .no {
+    background: #fff;
+    color: #c9184a;
+    border: 2px solid var(--rose);
+    font-size: 1.05rem;
+    padding: 13px 36px;
+  }
+
+  .section { display: none; animation: fadeUp 0.6s ease; }
+  .section.active { display: block; }
+  @keyframes fadeUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  h2 { font-size: 1.5rem; color: var(--deep-rose); margin-bottom: 8px; }
+  .hint { color: #a03552; font-size: 0.95rem; margin-bottom: 18px; }
+
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+  .opt {
+    background: #fff;
+    color: #7c1230;
+    border: 2px solid #f5c1cb;
+    font-size: 1rem;
+    padding: 12px 20px;
+  }
+  .opt:hover, .opt.selected {
+    background: linear-gradient(135deg, var(--rose), var(--deep-rose));
+    color: #fff;
+    border-color: var(--deep-rose);
+    transform: scale(1.05);
+  }
+
+  .next-btn {
+    background: linear-gradient(135deg, var(--gold), var(--rose));
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 14px 40px;
+    box-shadow: 0 8px 20px rgba(255, 77, 109, 0.5);
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  .next-btn.enabled { opacity: 1; pointer-events: auto; }
+  .next-btn.enabled:hover { transform: translateY(-3px) scale(1.04); }
+
+  .final-message {
+    font-size: 1.7rem;
+    line-height: 1.4;
+    color: var(--deep-rose);
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .final-name { font-size: 1rem; color: #a4425a; font-style: italic; }
+
+  .summary {
+    margin-bottom: 18px;
+    padding: 14px;
+    border-radius: 16px;
+    background: rgba(255, 77, 109, 0.12);
+    color: #7c1230;
+    font-weight: 600;
+    line-height: 1.8;
+  }
+
+  #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+</style>
+</head>
+<body>
+
+<div class="hearts" id="hearts"></div>
+<canvas id="confetti"></canvas>
+
+<div class="card" id="card">
+
+  <!-- 1. Question -->
+  <div class="section active" id="sec-ask">
+    <div class="emoji-big">🥰</div>
+    <h1>Can You Be My Date?</h1>
+    <p class="sub">My heart is beating just asking you this... 💘</p>
+    <div class="btn-row">
+      <button class="yes" id="btnYes">YES! 💖</button>
+      <button class="no" id="btnNo">NO 🙈</button>
+    </div>
+  </div>
+
+  <!-- 2. Happy message -->
+  <div class="section" id="sec-happy">
+    <div class="emoji-big">🎉💖🎉</div>
+    <h2>YAAAY! You said YES!!!</h2>
+    <p class="sub">Best decision of your life 💕 Let's build our perfect date —<br/>pick your favorites below!</p>
+    <button class="next-btn enabled" onclick="showSec('place')">Let's plan it! 💌</button>
+  </div>
+
+  <!-- 3. Where to go -->
+  <div class="section" id="sec-place">
+    <h2>📍 Where Should We Go?</h2>
+    <p class="hint">Tap your favorite place!</p>
+    <div class="options" id="places">
+      <button class="opt" data-val="SM Bicutan">🛍️ SM Bicutan</button>
+      <button class="opt" data-val="SM Mall of Asia (MOA)">🌊 SM Mall of Asia</button>
+      <button class="opt" data-val="Ayala Malls">🛒 Ayala Malls</button>
+      <button class="opt" data-val="SM City QC">🏢 SM City QC</button>
+      <button class="opt" data-val="SM Megamall">🏛️ SM Megamall</button>
+      <button class="opt" data-val="Surprise Me!">🎁 Surprise Me!</button>
+    </div>
+    <button class="next-btn" onclick="nextStep(3)">Next &rarr;</button>
+  </div>
+
+  <!-- 4. Where to eat -->
+  <div class="section" id="sec-eat">
+    <h2>🍽️ What Should We Eat?</h2>
+    <p class="hint">The way to my heart is through your tummy!</p>
+    <div class="options" id="eats">
+      <button class="opt" data-val="Bistro Group">🍷 Bistro Group</button>
+      <button class="opt" data-val="MESA">🍲 Mesa</button>
+      <button class="opt" data-val="Jollibee">🍗 Jollibee</button>
+      <button class="opt" data-val="McDonald's">🍔 McDo</button>
+      <button class="opt" data-val="Thai Food">🍜 Thai Food</button>
+      <button class="opt" data-val="Chinese Food">🥡 Chinese Food</button>
+      <button class="opt" data-val="Food Court">🍱 Food Court</button>
+      <button class="opt" data-val="Samgyeopsal">🥓 Samgyup</button>
+      <button class="opt" data-val="Surprise Me!">🎉 Surprise Me!</button>
+    </div>
+    <button class="next-btn" onclick="nextStep(4)">Next &rarr;</button>
+  </div>
+
+  <!-- 5. Where to have a drink -->
+  <div class="section" id="sec-drink">
+    <h2>☕ Where Should We Sit &amp; Chill?</h2>
+    <p class="hint">Perfect spot for a long talk &amp; holding hands...</p>
+    <div class="options" id="drinks">
+      <button class="opt" data-val="Zeus Coffee">☕ Zeus Coffee</button>
+      <button class="opt" data-val="Starbucks">✨ Starbucks</button>
+      <button class="opt" data-val="Milk Tea Shop">🧋 Milk Tea</button>
+      <button class="opt" data-val="Bobazzi">🧋 Bobazzi</button>
+      <button class="opt" data-val="Halo-Halo Shop">🍧 Halo-Halo</button>
+      <button class="opt" data-val="Surprise Me!">🎉 Surprise Me!</button>
+    </div>
+    <button class="next-btn" onclick="nextStep(5)">Plan Our Date 💘</button>
+  </div>
+
+  <!-- 6. Final -->
+  <div class="section" id="sec-final">
+    <div class="emoji-big">💞</div>
+    <div class="final-message" id="finalMsg">See you there, my love!</div>
+    <div class="summary" id="finalSummary"></div>
+    <p class="final-name">Can't wait to be with you. I love you! 💕</p>
+    <button class="next-btn enabled" onclick="startOver()">Start Over 🔄</button>
+  </div>
+
+</div>
+
+<script>
+  // ---- Floating hearts ----
+  const heartsEl = document.getElementById('hearts');
+  const heartEmojis = ['❤️','💖','💗','💘','💕','🌹','✨'];
+  for (let i = 0; i < 18; i++) {
+    const h = document.createElement('i');
+    h.textContent = heartEmojis[(Math.random()*heartEmojis.length)|0];
+    h.style.left = Math.random()*100 + '%';
+    h.style.fontSize = (14 + Math.random()*26) + 'px';
+    h.style.opacity = (0.3 + Math.random()*0.5);
+    h.style.animationDuration = (6 + Math.random()*9) + 's';
+    h.style.animationDelay = (-Math.random()*12) + 's';
+    heartsEl.appendChild(h);
+  }
+
+  // ---- Confetti ----
+  const canvas = document.getElementById('confetti');
+  const ctx = canvas.getContext('2d');
+  let conf = [];
+  function sizeCanvas() { canvas.width = innerWidth; canvas.height = innerHeight; }
+  sizeCanvas();
+  addEventListener('resize', sizeCanvas);
+
+  const confColors = ['#ff4d6d','#ffd66b','#a2d9ff','#d4f0a0','#ffffff','#c9184a'];
+  function burstConf() {
+    for (let i = 0; i < 130; i++) {
+      conf.push({
+        x: innerWidth/2 + (Math.random()-0.5)*240,
+        y: innerHeight/2 + (Math.random()-0.5)*120,
+        vx: (Math.random()-0.5)*13,
+        vy: (Math.random()-4)*15,
+        s: Math.random()*8+4,
+        c: confColors[(Math.random()*confColors.length)|0],
+        rot: Math.random()*Math.PI,
+        vr: (Math.random()-0.5)*0.4,
+      });
+    }
+  }
+  function confettiLoop() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    conf.forEach(p => {
+      p.x += p.vx; p.y += p.vy; p.vy += 0.6; p.rot += p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      ctx.fillStyle = p.c; ctx.fillRect(-p.s/2,-p.s/2,p.s,p.s*0.6);
+      ctx.restore();
+    });
+    conf = conf.filter(p => p.y < innerHeight + 40);
+    requestAnimationFrame(confettiLoop);
+  }
+  requestAnimationFrame(confettiLoop);
+
+  // ---- Navigation ----
+  const sections = document.querySelectorAll('.section');
+  function showSec(id) {
+    sections.forEach(s => s.classList.remove('active'));
+    document.getElementById('sec-'+id).classList.add('active');
+  }
+
+  // ---- No button -> YES grows ----
+  const yesBtn = document.getElementById('btnYes');
+  const noBtn = document.getElementById('btnNo');
+  let noCount = 0;
+  noBtn.addEventListener('click', () => {
+    noCount++;
+    const grow = Math.min(1 + noCount * 0.5, 5);
+    const shrink = Math.max(1 - noCount * 0.4, 0.1);
+    yesBtn.style.transform = `scale(${grow})`;
+    noBtn.style.transform = `scale(${shrink})`;
+    noBtn.textContent = noCount > 3 ? "Ok ok! Take the YES button 🙃" : "Really? 🙄";
+    burstConf();
+  });
+
+  yesBtn.addEventListener('click', () => {
+    burstConf();
+    showSec('happy');
+  });
+
+  // Restore button transforms when re-rendering ask section
+  function resetAsk() {
+    yesBtn.style.transform = '';
+    noBtn.style.transform = '';
+    noBtn.textContent = 'NO 🙈';
+    noCount = 0;
+  }
+
+  // ---- Option selector ----
+  document.querySelectorAll('.options').forEach(group => {
+    group.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        group.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        group.closest('.section').querySelector('.next-btn').classList.add('enabled');
+      });
+    });
+  });
+
+  // ---- Steps ----
+  let selected = {};
+  function nextStep(n) {
+    const key = { 3:'places', 4:'eats', 5:'drinks' }[n];
+    selected[key] = document.querySelector('#sec-'+n).querySelector('.opt.selected').dataset.val;
+    if (n === 5) buildFinal();
+    else showSec(n === 3 ? 'eat' : 'drink');
+  }
+  function buildFinal() {
+    document.getElementById('finalSummary').innerHTML =
+      '📍 ' + selected.places + '<br>🍽️ ' + selected.eats + '<br>☕ ' + selected.drinks;
+    showSec('final');
+    burstConf();
+  }
+  function startOver() {
+    selected = {};
+    document.querySelectorAll('.opt.selected').forEach(o => o.classList.remove('selected'));
+    document.querySelectorAll('.next-btn.enabled').forEach(b => b.classList.remove('enabled'));
+    resetAsk();
+    showSec('ask');
+  }
+</script>
+
+</body>
+</html>
