@@ -145,11 +145,11 @@
     font-size: 1.1rem;
     padding: 14px 40px;
     box-shadow: 0 8px 20px rgba(255, 77, 109, 0.5);
-    opacity: 0.45;
-    pointer-events: none;
   }
-  .next-btn.enabled { opacity: 1; pointer-events: auto; }
-  .next-btn.enabled:hover { transform: translateY(-3px) scale(1.04); }
+  .next-btn:hover { transform: translateY(-3px) scale(1.04); }
+  .next-btn.dimmed { opacity: 0.5; }
+  .prompt { display: none; margin-top: 14px; color: var(--deep-rose); font-weight: 700; }
+  .prompt.show { display: block; animation: fadeUp 0.4s ease; }
 
   .final-message {
     font-size: 1.7rem;
@@ -211,6 +211,7 @@
       <button class="opt" data-val="SM Megamall">🏛️ SM Megamall</button>
       <button class="opt" data-val="Surprise Me!">🎁 Surprise Me!</button>
     </div>
+    <div class="prompt">Pick one first, my love 😘</div>
     <button class="next-btn" onclick="nextStep(3)">Next &rarr;</button>
   </div>
 
@@ -229,6 +230,7 @@
       <button class="opt" data-val="Samgyeopsal">🥓 Samgyup</button>
       <button class="opt" data-val="Surprise Me!">🎉 Surprise Me!</button>
     </div>
+    <div class="prompt">Pick one first, my love 😘</div>
     <button class="next-btn" onclick="nextStep(4)">Next &rarr;</button>
   </div>
 
@@ -244,6 +246,7 @@
       <button class="opt" data-val="Halo-Halo Shop">🍧 Halo-Halo</button>
       <button class="opt" data-val="Surprise Me!">🎉 Surprise Me!</button>
     </div>
+    <div class="prompt">Pick one first, my love 😘</div>
     <button class="next-btn" onclick="nextStep(5)">Plan Our Date 💘</button>
   </div>
 
@@ -345,11 +348,14 @@
 
   // ---- Option selector ----
   document.querySelectorAll('.options').forEach(group => {
+    const nextBtn = group.closest('.section').querySelector('.next-btn');
     group.querySelectorAll('.opt').forEach(opt => {
       opt.addEventListener('click', () => {
+        nextBtn.classList.remove('dimmed');
         group.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
         opt.classList.add('selected');
-        group.closest('.section').querySelector('.next-btn').classList.add('enabled');
+        const pr = group.closest('.section').querySelector('.prompt');
+        if (pr) pr.classList.remove('show');
       });
     });
   });
@@ -357,8 +363,15 @@
   // ---- Steps ----
   let selected = {};
   function nextStep(n) {
+    const promptEl = document.querySelector('#sec-'+n).querySelector('.prompt');
+    const chosen = document.querySelector('#sec-'+n).querySelector('.opt.selected');
+    if (!chosen) {
+      if (promptEl) promptEl.classList.add('show');
+      return;
+    }
+    if (promptEl) promptEl.classList.remove('show');
     const key = { 3:'places', 4:'eats', 5:'drinks' }[n];
-    selected[key] = document.querySelector('#sec-'+n).querySelector('.opt.selected').dataset.val;
+    selected[key] = chosen.dataset.val;
     if (n === 5) buildFinal();
     else showSec(n === 3 ? 'eat' : 'drink');
   }
@@ -371,7 +384,8 @@
   function startOver() {
     selected = {};
     document.querySelectorAll('.opt.selected').forEach(o => o.classList.remove('selected'));
-    document.querySelectorAll('.next-btn.enabled').forEach(b => b.classList.remove('enabled'));
+    document.querySelectorAll('.next-btn.dimmed').forEach(b => b.classList.remove('dimmed'));
+    document.querySelectorAll('.prompt.show').forEach(p => p.classList.remove('show'));
     resetAsk();
     showSec('ask');
   }
