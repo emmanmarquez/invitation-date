@@ -159,6 +159,7 @@
     margin-bottom: 16px;
   }
   .final-name { font-size: 1rem; color: #a4425a; font-style: italic; }
+  .final-name.meow { font-size: 1.35rem; font-weight: 800; margin: 12px 0 18px; color: var(--deep-rose); font-style: normal; }
 
   .summary {
     margin-bottom: 18px;
@@ -171,6 +172,18 @@
   }
 
   #confetti { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+
+  .cats { display: flex; justify-content: center; gap: 22px; margin: 20px 0 4px; }
+  .cat { width: 92px; height: 92px; filter: drop-shadow(0 6px 10px rgba(193,24,74,0.18)); animation: catWob 2.6s ease-in-out infinite; }
+  .cat:nth-child(2) { animation-delay: 0.35s; }
+  .cat:nth-child(3) { animation-delay: 0.7s; }
+  @keyframes catWob {
+    0%,100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-6px) rotate(2deg); }
+  }
+  .final-cats { justify-content: center; margin-top: 4px; }
+  .cats-row { margin-bottom: 10px; }
+  .cats-row .cat { width: 84px; height: 84px; }
 </style>
 </head>
 <body>
@@ -188,6 +201,65 @@
     <div class="btn-row">
       <button class="yes" id="btnYes">YES! 💖</button>
       <button class="no" id="btnNo">NO 🙈</button>
+    </div>
+    <div class="cats cats-row">
+      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#e8d3b8" stroke-width="3" fill="#ffffff">
+          <polygon points="26,58 34,8 56,42"/>
+          <polygon points="94,58 86,8 64,42"/>
+          <circle cx="60" cy="82" r="50"/>
+        </g>
+        <polygon points="32,44 41,24 50,42" fill="#ffc9d3"/>
+        <polygon points="88,44 79,24 70,42" fill="#ffc9d3"/>
+        <circle cx="43" cy="76" r="5" fill="#2b2b2b"/>
+        <circle cx="77" cy="76" r="5" fill="#2b2b2b"/>
+        <circle cx="45" cy="74" r="1.7" fill="#ffffff"/>
+        <circle cx="79" cy="74" r="1.7" fill="#ffffff"/>
+        <polygon points="55,86 65,86 60,91" fill="#ff9db4"/>
+        <path d="M60 92 q-8 9 -16 3" stroke="#d0778c" stroke-width="2.5" fill="none"/>
+        <path d="M60 92 q8 9 16 3" stroke="#d0778c" stroke-width="2.5" fill="none"/>
+        <path d="M28 86 q-8 -3 -13 -8 M28 90 q-9 1 -13 1" stroke="#e8d5b8" stroke-width="2" fill="none"/>
+        <path d="M92 86 q8 -3 13 -8 M92 90 q9 1 13 1" stroke="#e8d5b8" stroke-width="2" fill="none"/>
+      </svg>
+      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#000000" stroke-width="3" fill="#1b1b1b">
+          <polygon points="26,58 34,16 56,42"/>
+          <polygon points="92,58 86,16 64,42"/>
+          <circle cx="60" cy="82" r="50"/>
+        </g>
+        <polygon points="32,44 41,24 50,42" fill="#2f4f3f"/>
+        <polygon points="88,44 79,24 70,42" fill="#2f4f3f"/>
+        <circle cx="43" cy="76" r="5" fill="#ffe66b"/>
+        <circle cx="77" cy="76" r="5" fill="#ffe66b"/>
+        <circle cx="43" cy="76" r="2.4" fill="#111"/>
+        <circle cx="77" cy="76" r="2.4" fill="#111"/>
+        <polygon points="55,86 65,86 60,91" fill="#ff9db4"/>
+        <path d="M60 92 q-8 9 -16 1" stroke="#c96a84" stroke-width="2.5" fill="none"/>
+        <path d="M60 92 q8 9 16 1" stroke="#c96a84" stroke-width="2.5" fill="none"/>
+        <path d="M28 86 q-8 -3 -13 -8 M28 90 q-9 1 -13 1" stroke="#3a3a3a" stroke-width="2" fill="none"/>
+        <path d="M92 86 q8 -3 13 -8 M92 90 q9 1 13 1" stroke="#3a3a3a" stroke-width="2" fill="none"/>
+      </svg>
+      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#cfaa82" stroke-width="3" fill="#f5e3ca">
+          <polygon points="26,58 34,16 56,42"/>
+          <polygon points="92,58 86,16 64,42"/>
+          <circle cx="60" cy="82" r="50"/>
+        </g>
+        <g fill="#b98a5c">
+          <polygon points="32,44 41,24 50,42"/>
+          <polygon points="88,44 79,24 70,42"/>
+        </g>
+        <ellipse cx="60" cy="77" rx="16" ry="14" fill="#b98a5c"/>
+        <circle cx="43" cy="72" r="5" fill="#4c7dff"/>
+        <circle cx="77" cy="72" r="5" fill="#4c7dff"/>
+        <circle cx="45" cy="70" r="1.7" fill="#ffffff"/>
+        <circle cx="79" cy="70" r="1.7" fill="#ffffff"/>
+        <polygon points="56,86 64,86 60,91" fill="#8a5a3a"/>
+        <path d="M60 92 q-8 9 -16 1" stroke="#8a5a3a" stroke-width="2.5" fill="none"/>
+        <path d="M60 92 q8 9 16 1" stroke="#8a5a3a" stroke-width="2.5" fill="none"/>
+        <path d="M28 86 q-8 -3 -13 -7 M28 90 q-9 1 -13 1" stroke="#cfaa82" stroke-width="2" fill="none"/>
+        <path d="M92 86 q8 -3 13 -7 M92 90 q9 1 13 1" stroke="#cfaa82" stroke-width="2" fill="none"/>
+      </svg>
     </div>
   </div>
 
@@ -256,6 +328,66 @@
     <div class="final-message" id="finalMsg">See you there, my love!</div>
     <div class="summary" id="finalSummary"></div>
     <p class="final-name">Can't wait to be with you. I love you! 💕</p>
+    <div class="cats final-cats">
+      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#e8d3b8" stroke-width="3" fill="#ffffff">
+          <polygon points="26,58 34,8 56,42"/>
+          <polygon points="94,58 86,8 64,42"/>
+          <circle cx="60" cy="82" r="50"/>
+        </g>
+        <polygon points="32,44 41,24 50,42" fill="#ffc9d3"/>
+        <polygon points="88,44 79,24 70,42" fill="#ffc9d3"/>
+        <circle cx="43" cy="76" r="5" fill="#2b2b2b"/>
+        <circle cx="77" cy="76" r="5" fill="#2b2b2b"/>
+        <circle cx="45" cy="74" r="1.7" fill="#ffffff"/>
+        <circle cx="79" cy="74" r="1.7" fill="#ffffff"/>
+        <polygon points="55,86 65,86 60,91" fill="#ff9db4"/>
+        <path d="M60 92 q-8 9 -16 3" stroke="#d0778c" stroke-width="2.5" fill="none"/>
+        <path d="M60 92 q8 9 16 3" stroke="#d0778c" stroke-width="2.5" fill="none"/>
+        <path d="M28 86 q-8 -3 -13 -8 M28 90 q-9 1 -13 1" stroke="#e8d5b8" stroke-width="2" fill="none"/>
+        <path d="M92 86 q8 -3 13 -8 M92 90 q9 1 13 1" stroke="#e8d5b8" stroke-width="2" fill="none"/>
+      </svg>
+      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#000000" stroke-width="3" fill="#1b1b1b">
+          <polygon points="26,52 34,22 56,42"/>
+          <polygon points="92,52 86,22 64,42"/>
+          <circle cx="60" cy="82" r="50"/>
+        </g>
+        <polygon points="32,44 41,24 50,42" fill="#2f4f3f"/>
+        <polygon points="88,44 79,24 70,42" fill="#2f4f3f"/>
+        <circle cx="43" cy="52" r="5" fill="#ffe66b"/>
+        <circle cx="77" cy="52" r="5" fill="#ffe66b"/>
+        <circle cx="43" cy="52" r="2.4" fill="#111"/>
+        <circle cx="77" cy="52" r="2.4" fill="#111"/>
+        <polygon points="55,86 65,86 60,91" fill="#ff9db4"/>
+        <path d="M60 92 q-8 9 -16 1" stroke="#c96a84" stroke-width="2.5" fill="none"/>
+        <path d="M60 92 q8 9 16 1" stroke="#c96a84" stroke-width="2.5" fill="none"/>
+        <path d="M28 86 q-8 -3 -13 -4 M28 90 q-9 1 -13 1" stroke="#3a3a3a" stroke-width="2" fill="none"/>
+        <path d="M92 86 q8 -3 13 -4 M92 90 q9 1 13 1" stroke="#3a3a3a" stroke-width="2" fill="none"/>
+      </svg>
+      <svg class="cat" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <g stroke="#cfaa82" stroke-width="3" fill="#f5e3ca">
+          <polygon points="26,58 34,16 56,42"/>
+          <polygon points="92,58 86,16 64,42"/>
+          <circle cx="60" cy="82" r="50"/>
+        </g>
+        <g fill="#b98a5c">
+          <polygon points="32,44 41,24 50,42"/>
+          <polygon points="88,44 79,24 70,42"/>
+        </g>
+        <ellipse cx="60" cy="77" rx="16" ry="14" fill="#b98a5c"/>
+        <circle cx="43" cy="72" r="5" fill="#4c7dff"/>
+        <circle cx="77" cy="72" r="5" fill="#4c7dff"/>
+        <circle cx="45" cy="70" r="1.7" fill="#ffffff"/>
+        <circle cx="79" cy="70" r="1.7" fill="#ffffff"/>
+        <polygon points="56,86 64,86 60,91" fill="#8a5a3a"/>
+        <path d="M60 92 q-8 9 -16 1" stroke="#8a5a3a" stroke-width="2.5" fill="none"/>
+        <path d="M60 92 q8 9 16 1" stroke="#8a5a3a" stroke-width="2.5" fill="none"/>
+        <path d="M28 86 q-8 -3 -13 -7 M28 90 q-9 1 -13 1" stroke="#cfaa82" stroke-width="2" fill="none"/>
+        <path d="M92 86 q8 -3 13 -7 M92 90 q9 1 13 1" stroke="#cfaa82" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+    <p class="final-name meow">have a good date Meowmy &amp; Meowdy 🐾</p>
     <button class="next-btn enabled" onclick="startOver()">Start Over 🔄</button>
   </div>
 
@@ -363,8 +495,10 @@
   // ---- Steps ----
   let selected = {};
   function nextStep(n) {
-    const promptEl = document.querySelector('#sec-'+n).querySelector('.prompt');
-    const chosen = document.querySelector('#sec-'+n).querySelector('.opt.selected');
+    const idMap = { 3:'place', 4:'eat', 5:'drink' };
+    const sec = document.getElementById('sec-'+idMap[n]);
+    const promptEl = sec.querySelector('.prompt');
+    const chosen = sec.querySelector('.opt.selected');
     if (!chosen) {
       if (promptEl) promptEl.classList.add('show');
       return;
